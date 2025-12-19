@@ -14,7 +14,7 @@ public abstract class sasiu extends LinearOpMode{
     DcMotor pivoter;
     DcMotor turatie;
     DcMotor spinner;
-    Servo unghi;
+    Servo unghiTureta;
     int limitswitch = 0;
     int position = 0;
     int encoderPosition = 0;
@@ -54,7 +54,7 @@ public abstract class sasiu extends LinearOpMode{
     }
 
     private void InitServo() {
-        unghi = hardwareMap.servo.get("unghi tureta");
+        unghiTureta = hardwareMap.servo.get("unghi tureta");
     }
 
     private void SetWheelsPower() {
@@ -108,7 +108,7 @@ public abstract class sasiu extends LinearOpMode{
     }
 
     private void score() {
-        unghi.setPosition(unghiTargetPosition / 270);
+        unghiTureta.setPosition(unghiTargetPosition / 270);
 
         ElapsedTime timer = new ElapsedTime();
         while(pivoterTargetPosition - pivoter.getCurrentPosition() != 0) {
