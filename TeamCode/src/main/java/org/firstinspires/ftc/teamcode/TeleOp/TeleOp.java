@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public abstract class sasiu extends LinearOpMode{
+public abstract class TeleOp extends LinearOpMode {
+
     DcMotor leftFront;
     DcMotor leftBack;
     DcMotor rightFront;
@@ -24,6 +25,7 @@ public abstract class sasiu extends LinearOpMode{
     double error = 0;
     double lastError = 0;
     double derivative = 0;
+
     int Kp = 0;
     int Ki = 0;
     int Kd = 0;
@@ -32,7 +34,14 @@ public abstract class sasiu extends LinearOpMode{
 
     int slotIndex = 0;
 
-    private void InitWheels() {
+    public void runOpMode(){
+        initWheels();
+        initDc();
+        initServo();
+        setWheelsPower();
+    }
+
+    private void initWheels() {
         leftFront = hardwareMap.dcMotor.get("leftFront");
         rightFront = hardwareMap.dcMotor.get("rightFront");
         leftBack = hardwareMap.dcMotor.get("leftRear");
@@ -44,7 +53,7 @@ public abstract class sasiu extends LinearOpMode{
         leftBack.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    private void InitDc() {
+    private void initDc() {
         matura =hardwareMap.dcMotor.get("matura");
         pivoter =hardwareMap.dcMotor.get("pivoter");
         turatie =hardwareMap.dcMotor.get("turatie");
@@ -53,11 +62,11 @@ public abstract class sasiu extends LinearOpMode{
 
     }
 
-    private void InitServo() {
+    private void initServo() {
         unghiTureta = hardwareMap.servo.get("unghi tureta");
     }
 
-    private void SetWheelsPower() {
+    private void setWheelsPower() {
         double left_x = gamepad1.left_stick_x;
         double left_y = -gamepad1.left_stick_y; // forward is negative
         double right_x = gamepad1.right_stick_x;
@@ -83,7 +92,7 @@ public abstract class sasiu extends LinearOpMode{
         rightFront.setPower(front_right_pw);
         rightBack.setPower(back_right_pw);
     }
-    
+
     private void intake() {
         matura.setPower(1.0);
     }
