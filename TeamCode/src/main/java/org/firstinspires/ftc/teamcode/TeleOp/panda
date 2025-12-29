@@ -1,0 +1,76 @@
+DcMotor tureta = hardwareMap.dcMotor.get("tureta");
+tureta.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+tureta.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+tureta.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
+int ticksPerRevolution = ?;// de luat de la hard
+double gearRatio = ?;
+double degreesToRotate = 120;
+
+
+
+Servo eject = hardwareMap.servo.get("eject");
+
+TouchSensor touch;
+touch = hardwareMap.get(TouchSensor.class, "limitSwitch");
+
+
+
+
+
+
+if (buton) { // de pus butonul
+    eject.setDirection(Servo.Direction.FORWARD);
+    eject.setPosition(0.55);
+
+    eject.setDirection(Servo.Direction.FORWARD);
+    eject.setPosition(0.0);
+
+
+
+
+
+    while (opModeIsActive() && motor.isBusy()) {
+
+        int targetTicks = (int) ((degreesToRotate / 360.0) * ticksPerRevolution * gearRatio);
+
+
+        tureta.setTargetPosition(targetTicks);
+
+
+        tureta.setPower(0.5);
+
+
+        telemetry.addData("Motor Ticks", tureta.getCurrentPosition());
+        telemetry.update();
+    }
+
+
+        tureta.setPower(0);
+}
+
+
+
+}
+
+
+
+
+
+        if (buton) { // de pus butonul
+        reset2 = true;
+        }
+
+if (reset2) {
+        tureta.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        tureta.setPower(1);
+        if (touch.isPressed()) {
+        tureta.setPower(0);
+        reset2 = false;
+        tureta.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        tureta.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        target2 = 0;
+
+        }
+        }
